@@ -8,7 +8,6 @@ const warned = new Set<string>();
 function optional(name: string): string {
   const value = process.env[name];
   if (!value && process.env.NODE_ENV === "production" && !warned.has(name)) {
-    // eslint-disable-next-line no-console
     console.warn(
       `[env] ${name} is unset. Routes that depend on it will fail at request time. ` +
         `The OS shell still works in offline / single-user mode.`,

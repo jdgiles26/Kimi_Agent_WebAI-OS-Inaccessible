@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { bodyLimit } from "hono/body-limit";
 import type { HttpBindings } from "@hono/node-server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
@@ -12,7 +11,18 @@ import { getLanAddresses } from "./lan/lan";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
-app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
+// Reject uploads larger than 50MB by Content-Length. hono/body-limit's
+// streaming reassembly path (`new Request(c.req.raw, { body, duplex })`)
+// crashes on Node 24+ undici with `Cannot read private member #state`,
+// returning 500 for any POST that lacks Content-Length.
+const MAX_BODY_BYTES = 50 * 1024 * 1024;
+app.use(async (c, next) => {
+  const len = c.req.raw.headers.get("content-length");
+  if (len && parseInt(len, 10) > MAX_BODY_BYTES) {
+    return c.text("Payload Too Large", 413);
+  }
+  return next();
+});
 app.get(Paths.oauthCallback, createOAuthCallbackHandler());
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
