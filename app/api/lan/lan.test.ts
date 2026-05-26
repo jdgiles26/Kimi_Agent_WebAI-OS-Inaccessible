@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { getLanAddresses } from './lan';
-import app from '../boot';
+import app from '../_boot';
 
 describe('getLanAddresses', () => {
   it('returns an array (may be empty in some sandboxes)', () => {

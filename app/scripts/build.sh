@@ -48,8 +48,8 @@ bold "==> Bundle sizes"
 if [ -d dist/public ]; then
   ls -lah dist/public | grep -E "\.(js|wasm|css|html)$" | awk '{printf "    %-12s %s\n", $5, $NF}'
 fi
-if [ -f dist/boot.js ]; then
-  printf "    %-12s dist/boot.js (server)\n" "$(ls -lah dist/boot.js | awk '{print $5}')"
+if [ -f dist/_boot.js ]; then
+  printf "    %-12s dist/_boot.js (server)\n" "$(ls -lah dist/_boot.js | awk '{print $5}')"
 fi
 echo
 green "Build complete. Start with: npm start  (or: scripts/start.sh)"
