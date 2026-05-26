@@ -11,8 +11,8 @@ cd "$(dirname "$0")/.."
 PORT="${PORT:-3000}"
 HOST="${HOST:-0.0.0.0}"
 
-if [ ! -f dist/boot.js ]; then
-  echo "dist/boot.js not found. Run scripts/build.sh first." >&2
+if [ ! -f dist/_boot.js ]; then
+  echo "dist/_boot.js not found. Run scripts/build.sh first." >&2
   exit 1
 fi
 
@@ -25,4 +25,4 @@ if [ -n "$stale" ]; then
 fi
 
 echo "Starting WebAI OS on $HOST:$PORT (NODE_ENV=production)"
-exec env NODE_ENV=production PORT="$PORT" HOST="$HOST" node dist/boot.js
+exec env NODE_ENV=production PORT="$PORT" HOST="$HOST" node dist/_boot.js

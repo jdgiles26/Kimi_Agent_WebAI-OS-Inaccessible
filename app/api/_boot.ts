@@ -67,7 +67,9 @@ app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));
 
 export default app;
 
-if (env.isProduction) {
+// Self-hosted (Docker/node) only — on Vercel the function entry is api/index.ts
+// and binding a port would crash the serverless invocation.
+if (env.isProduction && !process.env.VERCEL) {
   startServer();
 }
 
