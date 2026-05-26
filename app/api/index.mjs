@@ -12278,9 +12278,9 @@ var require_binlog_dump = __commonJS({
 var require_auth_41 = __commonJS({
   "../../../../app/node_modules/mysql2/lib/auth_41.js"(exports) {
     "use strict";
-    var crypto3 = __require("crypto");
+    var crypto4 = __require("crypto");
     function sha1(msg, msg1, msg2) {
-      const hash2 = crypto3.createHash("sha1");
+      const hash2 = crypto4.createHash("sha1");
       hash2.update(msg);
       if (msg1) {
         hash2.update(msg1);
@@ -14156,7 +14156,7 @@ var require_sha256_password = __commonJS({
   "../../../../app/node_modules/mysql2/lib/auth_plugins/sha256_password.js"(exports, module) {
     "use strict";
     var PLUGIN_NAME = "sha256_password";
-    var crypto3 = __require("crypto");
+    var crypto4 = __require("crypto");
     var { xorRotating } = require_auth_41();
     var Tls = __require("tls");
     var REQUEST_SERVER_KEY_PACKET = Buffer.from([1]);
@@ -14165,7 +14165,7 @@ var require_sha256_password = __commonJS({
     var STATE_FINAL = -1;
     function encrypt(password, scramble, key) {
       const stage1 = xorRotating(Buffer.from(`${password}\0`, "utf8"), scramble);
-      return crypto3.publicEncrypt(
+      return crypto4.publicEncrypt(
         {
           key,
           oaepHash: "sha1"
@@ -14217,7 +14217,7 @@ var require_caching_sha2_password = __commonJS({
   "../../../../app/node_modules/mysql2/lib/auth_plugins/caching_sha2_password.js"(exports, module) {
     "use strict";
     var PLUGIN_NAME = "caching_sha2_password";
-    var crypto3 = __require("crypto");
+    var crypto4 = __require("crypto");
     var { xor: xor2, xorRotating } = require_auth_41();
     var REQUEST_SERVER_KEY_PACKET = Buffer.from([2]);
     var FAST_AUTH_SUCCESS_PACKET = Buffer.from([3]);
@@ -14227,7 +14227,7 @@ var require_caching_sha2_password = __commonJS({
     var STATE_WAIT_SERVER_KEY = 2;
     var STATE_FINAL = -1;
     function sha256(msg) {
-      const hash2 = crypto3.createHash("sha256");
+      const hash2 = crypto4.createHash("sha256");
       hash2.update(msg);
       return hash2.digest();
     }
@@ -14242,11 +14242,11 @@ var require_caching_sha2_password = __commonJS({
     }
     function encrypt(password, scramble, key) {
       const stage1 = xorRotating(Buffer.from(`${password}\0`, "utf8"), scramble);
-      return crypto3.publicEncrypt(
+      return crypto4.publicEncrypt(
         {
           key,
           oaepHash: "sha1",
-          padding: crypto3.constants.RSA_PKCS1_OAEP_PADDING
+          padding: crypto4.constants.RSA_PKCS1_OAEP_PADDING
         },
         stage1
       );
@@ -15574,7 +15574,7 @@ var require_query2 = __commonJS({
     "use strict";
     var process3 = __require("process");
     var Timers = __require("timers");
-    var Readable3 = __require("stream").Readable;
+    var Readable4 = __require("stream").Readable;
     var Command = require_command();
     var Packets = require_packets();
     var getTextParser = require_text_parser();
@@ -15816,7 +15816,7 @@ var require_query2 = __commonJS({
       stream(options) {
         options = options || /* @__PURE__ */ Object.create(null);
         options.objectMode = true;
-        const stream = new Readable3({
+        const stream = new Readable4({
           ...options,
           emitClose: true,
           autoDestroy: true,
@@ -17152,7 +17152,7 @@ var require_connection = __commonJS({
     var Tls = __require("tls");
     var Timers = __require("timers");
     var EventEmitter = __require("events").EventEmitter;
-    var Readable3 = __require("stream").Readable;
+    var Readable4 = __require("stream").Readable;
     var Queue = require_denque();
     var SqlString = require_lib();
     var { createLRU } = require_lib3();
@@ -17935,7 +17935,7 @@ var require_connection = __commonJS({
       }
       createBinlogStream(opts) {
         let test = 1;
-        const stream = new Readable3({ objectMode: true });
+        const stream = new Readable4({ objectMode: true });
         stream._read = function() {
           return {
             data: test++
@@ -19663,7 +19663,7 @@ var require_main = __commonJS({
     var fs2 = __require("fs");
     var path2 = __require("path");
     var os = __require("os");
-    var crypto3 = __require("crypto");
+    var crypto4 = __require("crypto");
     var TIPS = [
       "\u25C8 encrypted .env [www.dotenvx.com]",
       "\u25C8 secrets for agents [www.dotenvx.com]",
@@ -19907,7 +19907,7 @@ var require_main = __commonJS({
       const authTag = ciphertext.subarray(-16);
       ciphertext = ciphertext.subarray(12, -16);
       try {
-        const aesgcm = crypto3.createDecipheriv("aes-256-gcm", key, nonce);
+        const aesgcm = crypto4.createDecipheriv("aes-256-gcm", key, nonce);
         aesgcm.setAuthTag(authTag);
         return `${aesgcm.update(ciphertext)}${aesgcm.final()}`;
       } catch (error48) {
@@ -20025,20 +20025,20 @@ var require_cli_options = __commonJS({
 // ../../../../app/node_modules/@hono/node-server/dist/index.mjs
 var dist_exports = {};
 __export(dist_exports, {
-  RequestError: () => RequestError,
+  RequestError: () => RequestError2,
   createAdaptorServer: () => createAdaptorServer,
-  getRequestListener: () => getRequestListener,
+  getRequestListener: () => getRequestListener2,
   serve: () => serve
 });
 import { createServer as createServerHTTP } from "http";
-import { Http2ServerRequest as Http2ServerRequest2, constants as h2constants } from "http2";
-import { Http2ServerRequest } from "http2";
-import { Readable } from "stream";
-import crypto2 from "crypto";
-async function readWithoutBlocking(readPromise) {
+import { Http2ServerRequest as Http2ServerRequest22, constants as h2constants2 } from "http2";
+import { Http2ServerRequest as Http2ServerRequest3 } from "http2";
+import { Readable as Readable2 } from "stream";
+import crypto3 from "crypto";
+async function readWithoutBlocking2(readPromise) {
   return Promise.race([readPromise, Promise.resolve().then(() => Promise.resolve(void 0))]);
 }
-function writeFromReadableStreamDefaultReader(reader, writable, currentReadPromise) {
+function writeFromReadableStreamDefaultReader2(reader, writable, currentReadPromise) {
   const cancel = (error48) => {
     reader.cancel(error48).catch(() => {
     });
@@ -20072,34 +20072,34 @@ function writeFromReadableStreamDefaultReader(reader, writable, currentReadPromi
     }
   }
 }
-function writeFromReadableStream(stream, writable) {
+function writeFromReadableStream2(stream, writable) {
   if (stream.locked) {
     throw new TypeError("ReadableStream is locked.");
   } else if (writable.destroyed) {
     return;
   }
-  return writeFromReadableStreamDefaultReader(stream.getReader(), writable);
+  return writeFromReadableStreamDefaultReader2(stream.getReader(), writable);
 }
-var RequestError, toRequestError, GlobalRequest, Request2, newHeadersFromIncoming, wrapBodyStream, newRequestFromIncoming, getRequestCache, requestCache, incomingKey, urlKey, headersKey, abortControllerKey, getAbortController, requestPrototype, newRequest, responseCache, getResponseCache, cacheKey, GlobalResponse, Response2, buildOutgoingHttpHeaders, X_ALREADY_SENT, outgoingEnded, incomingDraining, DRAIN_TIMEOUT_MS, MAX_DRAIN_BYTES, drainIncoming, handleRequestError, handleFetchError, handleResponseError, flushHeaders, responseViaCache, isPromise2, responseViaResponseObject, getRequestListener, createAdaptorServer, serve;
+var RequestError2, toRequestError2, GlobalRequest2, Request3, newHeadersFromIncoming2, wrapBodyStream2, newRequestFromIncoming2, getRequestCache2, requestCache2, incomingKey2, urlKey2, headersKey2, abortControllerKey2, getAbortController2, requestPrototype2, newRequest2, responseCache2, getResponseCache2, cacheKey2, GlobalResponse2, Response22, buildOutgoingHttpHeaders2, X_ALREADY_SENT2, outgoingEnded2, incomingDraining2, DRAIN_TIMEOUT_MS2, MAX_DRAIN_BYTES2, drainIncoming2, handleRequestError2, handleFetchError2, handleResponseError2, flushHeaders2, responseViaCache2, isPromise3, responseViaResponseObject2, getRequestListener2, createAdaptorServer, serve;
 var init_dist = __esm({
   "../../../../app/node_modules/@hono/node-server/dist/index.mjs"() {
-    RequestError = class extends Error {
+    RequestError2 = class extends Error {
       constructor(message2, options) {
         super(message2, options);
         this.name = "RequestError";
       }
     };
-    toRequestError = (e) => {
-      if (e instanceof RequestError) {
+    toRequestError2 = (e) => {
+      if (e instanceof RequestError2) {
         return e;
       }
-      return new RequestError(e.message, { cause: e });
+      return new RequestError2(e.message, { cause: e });
     };
-    GlobalRequest = global.Request;
-    Request2 = class extends GlobalRequest {
+    GlobalRequest2 = global.Request;
+    Request3 = class extends GlobalRequest2 {
       constructor(input, options) {
-        if (typeof input === "object" && getRequestCache in input) {
-          input = input[getRequestCache]();
+        if (typeof input === "object" && getRequestCache2 in input) {
+          input = input[getRequestCache2]();
         }
         if (typeof options?.body?.getReader !== "undefined") {
           ;
@@ -20108,7 +20108,7 @@ var init_dist = __esm({
         super(input, options);
       }
     };
-    newHeadersFromIncoming = (incoming) => {
+    newHeadersFromIncoming2 = (incoming) => {
       const headerRecord = [];
       const rawHeaders = incoming.rawHeaders;
       for (let i = 0; i < rawHeaders.length; i += 2) {
@@ -20120,8 +20120,8 @@ var init_dist = __esm({
       }
       return new Headers(headerRecord);
     };
-    wrapBodyStream = /* @__PURE__ */ Symbol("wrapBodyStream");
-    newRequestFromIncoming = (method, url2, headers, incoming, abortController) => {
+    wrapBodyStream2 = /* @__PURE__ */ Symbol("wrapBodyStream");
+    newRequestFromIncoming2 = (method, url2, headers, incoming, abortController) => {
       const init = {
         method,
         headers,
@@ -20129,7 +20129,7 @@ var init_dist = __esm({
       };
       if (method === "TRACE") {
         init.method = "GET";
-        const req = new Request2(url2, init);
+        const req = new Request3(url2, init);
         Object.defineProperty(req, "method", {
           get() {
             return "TRACE";
@@ -20145,12 +20145,12 @@ var init_dist = __esm({
               controller.close();
             }
           });
-        } else if (incoming[wrapBodyStream]) {
+        } else if (incoming[wrapBodyStream2]) {
           let reader;
           init.body = new ReadableStream({
             async pull(controller) {
               try {
-                reader ||= Readable.toWeb(incoming).getReader();
+                reader ||= Readable2.toWeb(incoming).getReader();
                 const { done, value } = await reader.read();
                 if (done) {
                   controller.close();
@@ -20163,40 +20163,40 @@ var init_dist = __esm({
             }
           });
         } else {
-          init.body = Readable.toWeb(incoming);
+          init.body = Readable2.toWeb(incoming);
         }
       }
-      return new Request2(url2, init);
+      return new Request3(url2, init);
     };
-    getRequestCache = /* @__PURE__ */ Symbol("getRequestCache");
-    requestCache = /* @__PURE__ */ Symbol("requestCache");
-    incomingKey = /* @__PURE__ */ Symbol("incomingKey");
-    urlKey = /* @__PURE__ */ Symbol("urlKey");
-    headersKey = /* @__PURE__ */ Symbol("headersKey");
-    abortControllerKey = /* @__PURE__ */ Symbol("abortControllerKey");
-    getAbortController = /* @__PURE__ */ Symbol("getAbortController");
-    requestPrototype = {
+    getRequestCache2 = /* @__PURE__ */ Symbol("getRequestCache");
+    requestCache2 = /* @__PURE__ */ Symbol("requestCache");
+    incomingKey2 = /* @__PURE__ */ Symbol("incomingKey");
+    urlKey2 = /* @__PURE__ */ Symbol("urlKey");
+    headersKey2 = /* @__PURE__ */ Symbol("headersKey");
+    abortControllerKey2 = /* @__PURE__ */ Symbol("abortControllerKey");
+    getAbortController2 = /* @__PURE__ */ Symbol("getAbortController");
+    requestPrototype2 = {
       get method() {
-        return this[incomingKey].method || "GET";
+        return this[incomingKey2].method || "GET";
       },
       get url() {
-        return this[urlKey];
+        return this[urlKey2];
       },
       get headers() {
-        return this[headersKey] ||= newHeadersFromIncoming(this[incomingKey]);
+        return this[headersKey2] ||= newHeadersFromIncoming2(this[incomingKey2]);
       },
-      [getAbortController]() {
-        this[getRequestCache]();
-        return this[abortControllerKey];
+      [getAbortController2]() {
+        this[getRequestCache2]();
+        return this[abortControllerKey2];
       },
-      [getRequestCache]() {
-        this[abortControllerKey] ||= new AbortController();
-        return this[requestCache] ||= newRequestFromIncoming(
+      [getRequestCache2]() {
+        this[abortControllerKey2] ||= new AbortController();
+        return this[requestCache2] ||= newRequestFromIncoming2(
           this.method,
-          this[urlKey],
+          this[urlKey2],
           this.headers,
-          this[incomingKey],
-          this[abortControllerKey]
+          this[incomingKey2],
+          this[abortControllerKey2]
         );
       }
     };
@@ -20214,87 +20214,87 @@ var init_dist = __esm({
       "signal",
       "keepalive"
     ].forEach((k) => {
-      Object.defineProperty(requestPrototype, k, {
+      Object.defineProperty(requestPrototype2, k, {
         get() {
-          return this[getRequestCache]()[k];
+          return this[getRequestCache2]()[k];
         }
       });
     });
     ["arrayBuffer", "blob", "clone", "formData", "json", "text"].forEach((k) => {
-      Object.defineProperty(requestPrototype, k, {
+      Object.defineProperty(requestPrototype2, k, {
         value: function() {
-          return this[getRequestCache]()[k]();
+          return this[getRequestCache2]()[k]();
         }
       });
     });
-    Object.defineProperty(requestPrototype, /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom"), {
+    Object.defineProperty(requestPrototype2, /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom"), {
       value: function(depth, options, inspectFn) {
         const props = {
           method: this.method,
           url: this.url,
           headers: this.headers,
-          nativeRequest: this[requestCache]
+          nativeRequest: this[requestCache2]
         };
         return `Request (lightweight) ${inspectFn(props, { ...options, depth: depth == null ? null : depth - 1 })}`;
       }
     });
-    Object.setPrototypeOf(requestPrototype, Request2.prototype);
-    newRequest = (incoming, defaultHostname) => {
-      const req = Object.create(requestPrototype);
-      req[incomingKey] = incoming;
+    Object.setPrototypeOf(requestPrototype2, Request3.prototype);
+    newRequest2 = (incoming, defaultHostname) => {
+      const req = Object.create(requestPrototype2);
+      req[incomingKey2] = incoming;
       const incomingUrl = incoming.url || "";
       if (incomingUrl[0] !== "/" && // short-circuit for performance. most requests are relative URL.
       (incomingUrl.startsWith("http://") || incomingUrl.startsWith("https://"))) {
-        if (incoming instanceof Http2ServerRequest) {
-          throw new RequestError("Absolute URL for :path is not allowed in HTTP/2");
+        if (incoming instanceof Http2ServerRequest3) {
+          throw new RequestError2("Absolute URL for :path is not allowed in HTTP/2");
         }
         try {
           const url22 = new URL(incomingUrl);
-          req[urlKey] = url22.href;
+          req[urlKey2] = url22.href;
         } catch (e) {
-          throw new RequestError("Invalid absolute URL", { cause: e });
+          throw new RequestError2("Invalid absolute URL", { cause: e });
         }
         return req;
       }
-      const host = (incoming instanceof Http2ServerRequest ? incoming.authority : incoming.headers.host) || defaultHostname;
+      const host = (incoming instanceof Http2ServerRequest3 ? incoming.authority : incoming.headers.host) || defaultHostname;
       if (!host) {
-        throw new RequestError("Missing host header");
+        throw new RequestError2("Missing host header");
       }
       let scheme;
-      if (incoming instanceof Http2ServerRequest) {
+      if (incoming instanceof Http2ServerRequest3) {
         scheme = incoming.scheme;
         if (!(scheme === "http" || scheme === "https")) {
-          throw new RequestError("Unsupported scheme");
+          throw new RequestError2("Unsupported scheme");
         }
       } else {
         scheme = incoming.socket && incoming.socket.encrypted ? "https" : "http";
       }
       const url2 = new URL(`${scheme}://${host}${incomingUrl}`);
       if (url2.hostname.length !== host.length && url2.hostname !== host.replace(/:\d+$/, "")) {
-        throw new RequestError("Invalid host header");
+        throw new RequestError2("Invalid host header");
       }
-      req[urlKey] = url2.href;
+      req[urlKey2] = url2.href;
       return req;
     };
-    responseCache = /* @__PURE__ */ Symbol("responseCache");
-    getResponseCache = /* @__PURE__ */ Symbol("getResponseCache");
-    cacheKey = /* @__PURE__ */ Symbol("cache");
-    GlobalResponse = global.Response;
-    Response2 = class _Response {
+    responseCache2 = /* @__PURE__ */ Symbol("responseCache");
+    getResponseCache2 = /* @__PURE__ */ Symbol("getResponseCache");
+    cacheKey2 = /* @__PURE__ */ Symbol("cache");
+    GlobalResponse2 = global.Response;
+    Response22 = class _Response2 {
       #body;
       #init;
-      [getResponseCache]() {
-        delete this[cacheKey];
-        return this[responseCache] ||= new GlobalResponse(this.#body, this.#init);
+      [getResponseCache2]() {
+        delete this[cacheKey2];
+        return this[responseCache2] ||= new GlobalResponse2(this.#body, this.#init);
       }
       constructor(body, init) {
         let headers;
         this.#body = body;
-        if (init instanceof _Response) {
-          const cachedGlobalResponse = init[responseCache];
+        if (init instanceof _Response2) {
+          const cachedGlobalResponse = init[responseCache2];
           if (cachedGlobalResponse) {
             this.#init = cachedGlobalResponse;
-            this[getResponseCache]();
+            this[getResponseCache2]();
             return;
           } else {
             this.#init = init.#init;
@@ -20305,11 +20305,11 @@ var init_dist = __esm({
         }
         if (typeof body === "string" || typeof body?.getReader !== "undefined" || body instanceof Blob || body instanceof Uint8Array) {
           ;
-          this[cacheKey] = [init?.status || 200, body, headers || init?.headers];
+          this[cacheKey2] = [init?.status || 200, body, headers || init?.headers];
         }
       }
       get headers() {
-        const cache2 = this[cacheKey];
+        const cache2 = this[cacheKey2];
         if (cache2) {
           if (!(cache2[2] instanceof Headers)) {
             cache2[2] = new Headers(
@@ -20318,10 +20318,10 @@ var init_dist = __esm({
           }
           return cache2[2];
         }
-        return this[getResponseCache]().headers;
+        return this[getResponseCache2]().headers;
       }
       get status() {
-        return this[cacheKey]?.[0] ?? this[getResponseCache]().status;
+        return this[cacheKey2]?.[0] ?? this[getResponseCache2]().status;
       }
       get ok() {
         const status = this.status;
@@ -20329,33 +20329,33 @@ var init_dist = __esm({
       }
     };
     ["body", "bodyUsed", "redirected", "statusText", "trailers", "type", "url"].forEach((k) => {
-      Object.defineProperty(Response2.prototype, k, {
+      Object.defineProperty(Response22.prototype, k, {
         get() {
-          return this[getResponseCache]()[k];
+          return this[getResponseCache2]()[k];
         }
       });
     });
     ["arrayBuffer", "blob", "clone", "formData", "json", "text"].forEach((k) => {
-      Object.defineProperty(Response2.prototype, k, {
+      Object.defineProperty(Response22.prototype, k, {
         value: function() {
-          return this[getResponseCache]()[k]();
+          return this[getResponseCache2]()[k]();
         }
       });
     });
-    Object.defineProperty(Response2.prototype, /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom"), {
+    Object.defineProperty(Response22.prototype, /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom"), {
       value: function(depth, options, inspectFn) {
         const props = {
           status: this.status,
           headers: this.headers,
           ok: this.ok,
-          nativeResponse: this[responseCache]
+          nativeResponse: this[responseCache2]
         };
         return `Response (lightweight) ${inspectFn(props, { ...options, depth: depth == null ? null : depth - 1 })}`;
       }
     });
-    Object.setPrototypeOf(Response2, GlobalResponse);
-    Object.setPrototypeOf(Response2.prototype, GlobalResponse.prototype);
-    buildOutgoingHttpHeaders = (headers) => {
+    Object.setPrototypeOf(Response22, GlobalResponse2);
+    Object.setPrototypeOf(Response22.prototype, GlobalResponse2.prototype);
+    buildOutgoingHttpHeaders2 = (headers) => {
       const res = {};
       if (!(headers instanceof Headers)) {
         headers = new Headers(headers ?? void 0);
@@ -20374,24 +20374,24 @@ var init_dist = __esm({
       res["content-type"] ??= "text/plain; charset=UTF-8";
       return res;
     };
-    X_ALREADY_SENT = "x-hono-already-sent";
+    X_ALREADY_SENT2 = "x-hono-already-sent";
     if (typeof global.crypto === "undefined") {
-      global.crypto = crypto2;
+      global.crypto = crypto3;
     }
-    outgoingEnded = /* @__PURE__ */ Symbol("outgoingEnded");
-    incomingDraining = /* @__PURE__ */ Symbol("incomingDraining");
-    DRAIN_TIMEOUT_MS = 500;
-    MAX_DRAIN_BYTES = 64 * 1024 * 1024;
-    drainIncoming = (incoming) => {
+    outgoingEnded2 = /* @__PURE__ */ Symbol("outgoingEnded");
+    incomingDraining2 = /* @__PURE__ */ Symbol("incomingDraining");
+    DRAIN_TIMEOUT_MS2 = 500;
+    MAX_DRAIN_BYTES2 = 64 * 1024 * 1024;
+    drainIncoming2 = (incoming) => {
       const incomingWithDrainState = incoming;
-      if (incoming.destroyed || incomingWithDrainState[incomingDraining]) {
+      if (incoming.destroyed || incomingWithDrainState[incomingDraining2]) {
         return;
       }
-      incomingWithDrainState[incomingDraining] = true;
-      if (incoming instanceof Http2ServerRequest2) {
+      incomingWithDrainState[incomingDraining2] = true;
+      if (incoming instanceof Http2ServerRequest22) {
         try {
           ;
-          incoming.stream?.close?.(h2constants.NGHTTP2_NO_ERROR);
+          incoming.stream?.close?.(h2constants2.NGHTTP2_NO_ERROR);
         } catch {
         }
         return;
@@ -20410,11 +20410,11 @@ var init_dist = __esm({
           socket.destroySoon();
         }
       };
-      const timer = setTimeout(forceClose, DRAIN_TIMEOUT_MS);
+      const timer = setTimeout(forceClose, DRAIN_TIMEOUT_MS2);
       timer.unref?.();
       const onData = (chunk) => {
         bytesRead += chunk.length;
-        if (bytesRead > MAX_DRAIN_BYTES) {
+        if (bytesRead > MAX_DRAIN_BYTES2) {
           forceClose();
         }
       };
@@ -20423,13 +20423,13 @@ var init_dist = __esm({
       incoming.on("error", cleanup);
       incoming.resume();
     };
-    handleRequestError = () => new Response(null, {
+    handleRequestError2 = () => new Response(null, {
       status: 400
     });
-    handleFetchError = (e) => new Response(null, {
+    handleFetchError2 = (e) => new Response(null, {
       status: e instanceof Error && (e.name === "TimeoutError" || e.constructor.name === "TimeoutError") ? 504 : 500
     });
-    handleResponseError = (e, outgoing) => {
+    handleResponseError2 = (e, outgoing) => {
       const err = e instanceof Error ? e : new Error("unknown error", { cause: e });
       if (err.code === "ERR_STREAM_PREMATURE_CLOSE") {
         console.info("The user aborted a request.");
@@ -20442,23 +20442,23 @@ var init_dist = __esm({
         outgoing.destroy(err);
       }
     };
-    flushHeaders = (outgoing) => {
+    flushHeaders2 = (outgoing) => {
       if ("flushHeaders" in outgoing && outgoing.writable) {
         outgoing.flushHeaders();
       }
     };
-    responseViaCache = async (res, outgoing) => {
-      let [status, body, header] = res[cacheKey];
+    responseViaCache2 = async (res, outgoing) => {
+      let [status, body, header] = res[cacheKey2];
       let hasContentLength = false;
       if (!header) {
         header = { "content-type": "text/plain; charset=UTF-8" };
       } else if (header instanceof Headers) {
         hasContentLength = header.has("content-length");
-        header = buildOutgoingHttpHeaders(header);
+        header = buildOutgoingHttpHeaders2(header);
       } else if (Array.isArray(header)) {
         const headerObj = new Headers(header);
         hasContentLength = headerObj.has("content-length");
-        header = buildOutgoingHttpHeaders(headerObj);
+        header = buildOutgoingHttpHeaders2(headerObj);
       } else {
         for (const key in header) {
           if (key.length === 14 && key.toLowerCase() === "content-length") {
@@ -20482,17 +20482,17 @@ var init_dist = __esm({
       } else if (body instanceof Blob) {
         outgoing.end(new Uint8Array(await body.arrayBuffer()));
       } else {
-        flushHeaders(outgoing);
-        await writeFromReadableStream(body, outgoing)?.catch(
-          (e) => handleResponseError(e, outgoing)
+        flushHeaders2(outgoing);
+        await writeFromReadableStream2(body, outgoing)?.catch(
+          (e) => handleResponseError2(e, outgoing)
         );
       }
       ;
-      outgoing[outgoingEnded]?.();
+      outgoing[outgoingEnded2]?.();
     };
-    isPromise2 = (res) => typeof res.then === "function";
-    responseViaResponseObject = async (res, outgoing, options = {}) => {
-      if (isPromise2(res)) {
+    isPromise3 = (res) => typeof res.then === "function";
+    responseViaResponseObject2 = async (res, outgoing, options = {}) => {
+      if (isPromise3(res)) {
         if (options.errorHandler) {
           try {
             res = await res;
@@ -20504,13 +20504,13 @@ var init_dist = __esm({
             res = errRes;
           }
         } else {
-          res = await res.catch(handleFetchError);
+          res = await res.catch(handleFetchError2);
         }
       }
-      if (cacheKey in res) {
-        return responseViaCache(res, outgoing);
+      if (cacheKey2 in res) {
+        return responseViaCache2(res, outgoing);
       }
-      const resHeaderRecord = buildOutgoingHttpHeaders(res.headers);
+      const resHeaderRecord = buildOutgoingHttpHeaders2(res.headers);
       if (res.body) {
         const reader = res.body.getReader();
         const values = [];
@@ -20520,7 +20520,7 @@ var init_dist = __esm({
           let maxReadCount = 2;
           for (let i = 0; i < maxReadCount; i++) {
             currentReadPromise ||= reader.read();
-            const chunk = await readWithoutBlocking(currentReadPromise).catch((e) => {
+            const chunk = await readWithoutBlocking2(currentReadPromise).catch((e) => {
               console.error(e);
               done = true;
             });
@@ -20554,47 +20554,47 @@ var init_dist = __esm({
           outgoing.end();
         } else {
           if (values.length === 0) {
-            flushHeaders(outgoing);
+            flushHeaders2(outgoing);
           }
-          await writeFromReadableStreamDefaultReader(reader, outgoing, currentReadPromise);
+          await writeFromReadableStreamDefaultReader2(reader, outgoing, currentReadPromise);
         }
-      } else if (resHeaderRecord[X_ALREADY_SENT]) {
+      } else if (resHeaderRecord[X_ALREADY_SENT2]) {
       } else {
         outgoing.writeHead(res.status, resHeaderRecord);
         outgoing.end();
       }
       ;
-      outgoing[outgoingEnded]?.();
+      outgoing[outgoingEnded2]?.();
     };
-    getRequestListener = (fetchCallback, options = {}) => {
+    getRequestListener2 = (fetchCallback, options = {}) => {
       const autoCleanupIncoming = options.autoCleanupIncoming ?? true;
-      if (options.overrideGlobalObjects !== false && global.Request !== Request2) {
+      if (options.overrideGlobalObjects !== false && global.Request !== Request3) {
         Object.defineProperty(global, "Request", {
-          value: Request2
+          value: Request3
         });
         Object.defineProperty(global, "Response", {
-          value: Response2
+          value: Response22
         });
       }
       return async (incoming, outgoing) => {
         let res, req;
         try {
-          req = newRequest(incoming, options.hostname);
+          req = newRequest2(incoming, options.hostname);
           let incomingEnded = !autoCleanupIncoming || incoming.method === "GET" || incoming.method === "HEAD";
           if (!incomingEnded) {
             ;
-            incoming[wrapBodyStream] = true;
+            incoming[wrapBodyStream2] = true;
             incoming.on("end", () => {
               incomingEnded = true;
             });
-            if (incoming instanceof Http2ServerRequest2) {
+            if (incoming instanceof Http2ServerRequest22) {
               ;
-              outgoing[outgoingEnded] = () => {
+              outgoing[outgoingEnded2] = () => {
                 if (!incomingEnded) {
                   setTimeout(() => {
                     if (!incomingEnded) {
                       setTimeout(() => {
-                        drainIncoming(incoming);
+                        drainIncoming2(incoming);
                       });
                     }
                   });
@@ -20603,59 +20603,59 @@ var init_dist = __esm({
             }
             outgoing.on("finish", () => {
               if (!incomingEnded) {
-                drainIncoming(incoming);
+                drainIncoming2(incoming);
               }
             });
           }
           outgoing.on("close", () => {
-            const abortController = req[abortControllerKey];
+            const abortController = req[abortControllerKey2];
             if (abortController) {
               if (incoming.errored) {
-                req[abortControllerKey].abort(incoming.errored.toString());
+                req[abortControllerKey2].abort(incoming.errored.toString());
               } else if (!outgoing.writableFinished) {
-                req[abortControllerKey].abort("Client connection prematurely closed.");
+                req[abortControllerKey2].abort("Client connection prematurely closed.");
               }
             }
             if (!incomingEnded) {
               setTimeout(() => {
                 if (!incomingEnded) {
                   setTimeout(() => {
-                    drainIncoming(incoming);
+                    drainIncoming2(incoming);
                   });
                 }
               });
             }
           });
           res = fetchCallback(req, { incoming, outgoing });
-          if (cacheKey in res) {
-            return responseViaCache(res, outgoing);
+          if (cacheKey2 in res) {
+            return responseViaCache2(res, outgoing);
           }
         } catch (e) {
           if (!res) {
             if (options.errorHandler) {
-              res = await options.errorHandler(req ? e : toRequestError(e));
+              res = await options.errorHandler(req ? e : toRequestError2(e));
               if (!res) {
                 return;
               }
             } else if (!req) {
-              res = handleRequestError();
+              res = handleRequestError2();
             } else {
-              res = handleFetchError(e);
+              res = handleFetchError2(e);
             }
           } else {
-            return handleResponseError(e, outgoing);
+            return handleResponseError2(e, outgoing);
           }
         }
         try {
-          return await responseViaResponseObject(res, outgoing, options);
+          return await responseViaResponseObject2(res, outgoing, options);
         } catch (e) {
-          return handleResponseError(e, outgoing);
+          return handleResponseError2(e, outgoing);
         }
       };
     };
     createAdaptorServer = (options) => {
       const fetchCallback = options.fetch;
-      const requestListener = getRequestListener(fetchCallback, {
+      const requestListener = getRequestListener2(fetchCallback, {
         hostname: options.hostname,
         overrideGlobalObjects: options.overrideGlobalObjects,
         autoCleanupIncoming: options.autoCleanupIncoming
@@ -20757,7 +20757,7 @@ var init_mime = __esm({
 import { createReadStream, statSync, existsSync } from "fs";
 import { join } from "path";
 import { versions } from "process";
-import { Readable as Readable2 } from "stream";
+import { Readable as Readable3 } from "stream";
 var COMPRESSIBLE_CONTENT_TYPE_REGEX, ENCODINGS, ENCODINGS_ORDERED_KEYS, pr54206Applied, useReadableToWeb, createStreamBody, getStats, tryDecode2, tryDecodeURI2, serveStatic;
 var init_serve_static = __esm({
   "../../../../app/node_modules/@hono/node-server/dist/serve-static.mjs"() {
@@ -20776,7 +20776,7 @@ var init_serve_static = __esm({
     useReadableToWeb = pr54206Applied();
     createStreamBody = (stream) => {
       if (useReadableToWeb) {
-        return Readable2.toWeb(stream);
+        return Readable3.toWeb(stream);
       }
       const body = new ReadableStream({
         start(controller) {
@@ -20934,9 +20934,628 @@ var init_vite = __esm({
   }
 });
 
-// ../../../../app/node_modules/hono/dist/adapter/vercel/handler.js
-var handle = (app2) => (req) => {
-  return app2.fetch(req);
+// ../../../../app/node_modules/@hono/node-server/dist/vercel.mjs
+import { Http2ServerRequest as Http2ServerRequest2, constants as h2constants } from "http2";
+import { Http2ServerRequest } from "http2";
+import { Readable } from "stream";
+import crypto2 from "crypto";
+var RequestError = class extends Error {
+  constructor(message2, options) {
+    super(message2, options);
+    this.name = "RequestError";
+  }
+};
+var toRequestError = (e) => {
+  if (e instanceof RequestError) {
+    return e;
+  }
+  return new RequestError(e.message, { cause: e });
+};
+var GlobalRequest = global.Request;
+var Request2 = class extends GlobalRequest {
+  constructor(input, options) {
+    if (typeof input === "object" && getRequestCache in input) {
+      input = input[getRequestCache]();
+    }
+    if (typeof options?.body?.getReader !== "undefined") {
+      ;
+      options.duplex ??= "half";
+    }
+    super(input, options);
+  }
+};
+var newHeadersFromIncoming = (incoming) => {
+  const headerRecord = [];
+  const rawHeaders = incoming.rawHeaders;
+  for (let i = 0; i < rawHeaders.length; i += 2) {
+    const { [i]: key, [i + 1]: value } = rawHeaders;
+    if (key.charCodeAt(0) !== /*:*/
+    58) {
+      headerRecord.push([key, value]);
+    }
+  }
+  return new Headers(headerRecord);
+};
+var wrapBodyStream = /* @__PURE__ */ Symbol("wrapBodyStream");
+var newRequestFromIncoming = (method, url2, headers, incoming, abortController) => {
+  const init = {
+    method,
+    headers,
+    signal: abortController.signal
+  };
+  if (method === "TRACE") {
+    init.method = "GET";
+    const req = new Request2(url2, init);
+    Object.defineProperty(req, "method", {
+      get() {
+        return "TRACE";
+      }
+    });
+    return req;
+  }
+  if (!(method === "GET" || method === "HEAD")) {
+    if ("rawBody" in incoming && incoming.rawBody instanceof Buffer) {
+      init.body = new ReadableStream({
+        start(controller) {
+          controller.enqueue(incoming.rawBody);
+          controller.close();
+        }
+      });
+    } else if (incoming[wrapBodyStream]) {
+      let reader;
+      init.body = new ReadableStream({
+        async pull(controller) {
+          try {
+            reader ||= Readable.toWeb(incoming).getReader();
+            const { done, value } = await reader.read();
+            if (done) {
+              controller.close();
+            } else {
+              controller.enqueue(value);
+            }
+          } catch (error48) {
+            controller.error(error48);
+          }
+        }
+      });
+    } else {
+      init.body = Readable.toWeb(incoming);
+    }
+  }
+  return new Request2(url2, init);
+};
+var getRequestCache = /* @__PURE__ */ Symbol("getRequestCache");
+var requestCache = /* @__PURE__ */ Symbol("requestCache");
+var incomingKey = /* @__PURE__ */ Symbol("incomingKey");
+var urlKey = /* @__PURE__ */ Symbol("urlKey");
+var headersKey = /* @__PURE__ */ Symbol("headersKey");
+var abortControllerKey = /* @__PURE__ */ Symbol("abortControllerKey");
+var getAbortController = /* @__PURE__ */ Symbol("getAbortController");
+var requestPrototype = {
+  get method() {
+    return this[incomingKey].method || "GET";
+  },
+  get url() {
+    return this[urlKey];
+  },
+  get headers() {
+    return this[headersKey] ||= newHeadersFromIncoming(this[incomingKey]);
+  },
+  [getAbortController]() {
+    this[getRequestCache]();
+    return this[abortControllerKey];
+  },
+  [getRequestCache]() {
+    this[abortControllerKey] ||= new AbortController();
+    return this[requestCache] ||= newRequestFromIncoming(
+      this.method,
+      this[urlKey],
+      this.headers,
+      this[incomingKey],
+      this[abortControllerKey]
+    );
+  }
+};
+[
+  "body",
+  "bodyUsed",
+  "cache",
+  "credentials",
+  "destination",
+  "integrity",
+  "mode",
+  "redirect",
+  "referrer",
+  "referrerPolicy",
+  "signal",
+  "keepalive"
+].forEach((k) => {
+  Object.defineProperty(requestPrototype, k, {
+    get() {
+      return this[getRequestCache]()[k];
+    }
+  });
+});
+["arrayBuffer", "blob", "clone", "formData", "json", "text"].forEach((k) => {
+  Object.defineProperty(requestPrototype, k, {
+    value: function() {
+      return this[getRequestCache]()[k]();
+    }
+  });
+});
+Object.defineProperty(requestPrototype, /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom"), {
+  value: function(depth, options, inspectFn) {
+    const props = {
+      method: this.method,
+      url: this.url,
+      headers: this.headers,
+      nativeRequest: this[requestCache]
+    };
+    return `Request (lightweight) ${inspectFn(props, { ...options, depth: depth == null ? null : depth - 1 })}`;
+  }
+});
+Object.setPrototypeOf(requestPrototype, Request2.prototype);
+var newRequest = (incoming, defaultHostname) => {
+  const req = Object.create(requestPrototype);
+  req[incomingKey] = incoming;
+  const incomingUrl = incoming.url || "";
+  if (incomingUrl[0] !== "/" && // short-circuit for performance. most requests are relative URL.
+  (incomingUrl.startsWith("http://") || incomingUrl.startsWith("https://"))) {
+    if (incoming instanceof Http2ServerRequest) {
+      throw new RequestError("Absolute URL for :path is not allowed in HTTP/2");
+    }
+    try {
+      const url22 = new URL(incomingUrl);
+      req[urlKey] = url22.href;
+    } catch (e) {
+      throw new RequestError("Invalid absolute URL", { cause: e });
+    }
+    return req;
+  }
+  const host = (incoming instanceof Http2ServerRequest ? incoming.authority : incoming.headers.host) || defaultHostname;
+  if (!host) {
+    throw new RequestError("Missing host header");
+  }
+  let scheme;
+  if (incoming instanceof Http2ServerRequest) {
+    scheme = incoming.scheme;
+    if (!(scheme === "http" || scheme === "https")) {
+      throw new RequestError("Unsupported scheme");
+    }
+  } else {
+    scheme = incoming.socket && incoming.socket.encrypted ? "https" : "http";
+  }
+  const url2 = new URL(`${scheme}://${host}${incomingUrl}`);
+  if (url2.hostname.length !== host.length && url2.hostname !== host.replace(/:\d+$/, "")) {
+    throw new RequestError("Invalid host header");
+  }
+  req[urlKey] = url2.href;
+  return req;
+};
+var responseCache = /* @__PURE__ */ Symbol("responseCache");
+var getResponseCache = /* @__PURE__ */ Symbol("getResponseCache");
+var cacheKey = /* @__PURE__ */ Symbol("cache");
+var GlobalResponse = global.Response;
+var Response2 = class _Response {
+  #body;
+  #init;
+  [getResponseCache]() {
+    delete this[cacheKey];
+    return this[responseCache] ||= new GlobalResponse(this.#body, this.#init);
+  }
+  constructor(body, init) {
+    let headers;
+    this.#body = body;
+    if (init instanceof _Response) {
+      const cachedGlobalResponse = init[responseCache];
+      if (cachedGlobalResponse) {
+        this.#init = cachedGlobalResponse;
+        this[getResponseCache]();
+        return;
+      } else {
+        this.#init = init.#init;
+        headers = new Headers(init.#init.headers);
+      }
+    } else {
+      this.#init = init;
+    }
+    if (typeof body === "string" || typeof body?.getReader !== "undefined" || body instanceof Blob || body instanceof Uint8Array) {
+      ;
+      this[cacheKey] = [init?.status || 200, body, headers || init?.headers];
+    }
+  }
+  get headers() {
+    const cache2 = this[cacheKey];
+    if (cache2) {
+      if (!(cache2[2] instanceof Headers)) {
+        cache2[2] = new Headers(
+          cache2[2] || { "content-type": "text/plain; charset=UTF-8" }
+        );
+      }
+      return cache2[2];
+    }
+    return this[getResponseCache]().headers;
+  }
+  get status() {
+    return this[cacheKey]?.[0] ?? this[getResponseCache]().status;
+  }
+  get ok() {
+    const status = this.status;
+    return status >= 200 && status < 300;
+  }
+};
+["body", "bodyUsed", "redirected", "statusText", "trailers", "type", "url"].forEach((k) => {
+  Object.defineProperty(Response2.prototype, k, {
+    get() {
+      return this[getResponseCache]()[k];
+    }
+  });
+});
+["arrayBuffer", "blob", "clone", "formData", "json", "text"].forEach((k) => {
+  Object.defineProperty(Response2.prototype, k, {
+    value: function() {
+      return this[getResponseCache]()[k]();
+    }
+  });
+});
+Object.defineProperty(Response2.prototype, /* @__PURE__ */ Symbol.for("nodejs.util.inspect.custom"), {
+  value: function(depth, options, inspectFn) {
+    const props = {
+      status: this.status,
+      headers: this.headers,
+      ok: this.ok,
+      nativeResponse: this[responseCache]
+    };
+    return `Response (lightweight) ${inspectFn(props, { ...options, depth: depth == null ? null : depth - 1 })}`;
+  }
+});
+Object.setPrototypeOf(Response2, GlobalResponse);
+Object.setPrototypeOf(Response2.prototype, GlobalResponse.prototype);
+async function readWithoutBlocking(readPromise) {
+  return Promise.race([readPromise, Promise.resolve().then(() => Promise.resolve(void 0))]);
+}
+function writeFromReadableStreamDefaultReader(reader, writable, currentReadPromise) {
+  const cancel = (error48) => {
+    reader.cancel(error48).catch(() => {
+    });
+  };
+  writable.on("close", cancel);
+  writable.on("error", cancel);
+  (currentReadPromise ?? reader.read()).then(flow, handleStreamError);
+  return reader.closed.finally(() => {
+    writable.off("close", cancel);
+    writable.off("error", cancel);
+  });
+  function handleStreamError(error48) {
+    if (error48) {
+      writable.destroy(error48);
+    }
+  }
+  function onDrain() {
+    reader.read().then(flow, handleStreamError);
+  }
+  function flow({ done, value }) {
+    try {
+      if (done) {
+        writable.end();
+      } else if (!writable.write(value)) {
+        writable.once("drain", onDrain);
+      } else {
+        return reader.read().then(flow, handleStreamError);
+      }
+    } catch (e) {
+      handleStreamError(e);
+    }
+  }
+}
+function writeFromReadableStream(stream, writable) {
+  if (stream.locked) {
+    throw new TypeError("ReadableStream is locked.");
+  } else if (writable.destroyed) {
+    return;
+  }
+  return writeFromReadableStreamDefaultReader(stream.getReader(), writable);
+}
+var buildOutgoingHttpHeaders = (headers) => {
+  const res = {};
+  if (!(headers instanceof Headers)) {
+    headers = new Headers(headers ?? void 0);
+  }
+  const cookies = [];
+  for (const [k, v] of headers) {
+    if (k === "set-cookie") {
+      cookies.push(v);
+    } else {
+      res[k] = v;
+    }
+  }
+  if (cookies.length > 0) {
+    res["set-cookie"] = cookies;
+  }
+  res["content-type"] ??= "text/plain; charset=UTF-8";
+  return res;
+};
+var X_ALREADY_SENT = "x-hono-already-sent";
+if (typeof global.crypto === "undefined") {
+  global.crypto = crypto2;
+}
+var outgoingEnded = /* @__PURE__ */ Symbol("outgoingEnded");
+var incomingDraining = /* @__PURE__ */ Symbol("incomingDraining");
+var DRAIN_TIMEOUT_MS = 500;
+var MAX_DRAIN_BYTES = 64 * 1024 * 1024;
+var drainIncoming = (incoming) => {
+  const incomingWithDrainState = incoming;
+  if (incoming.destroyed || incomingWithDrainState[incomingDraining]) {
+    return;
+  }
+  incomingWithDrainState[incomingDraining] = true;
+  if (incoming instanceof Http2ServerRequest2) {
+    try {
+      ;
+      incoming.stream?.close?.(h2constants.NGHTTP2_NO_ERROR);
+    } catch {
+    }
+    return;
+  }
+  let bytesRead = 0;
+  const cleanup = () => {
+    clearTimeout(timer);
+    incoming.off("data", onData);
+    incoming.off("end", cleanup);
+    incoming.off("error", cleanup);
+  };
+  const forceClose = () => {
+    cleanup();
+    const socket = incoming.socket;
+    if (socket && !socket.destroyed) {
+      socket.destroySoon();
+    }
+  };
+  const timer = setTimeout(forceClose, DRAIN_TIMEOUT_MS);
+  timer.unref?.();
+  const onData = (chunk) => {
+    bytesRead += chunk.length;
+    if (bytesRead > MAX_DRAIN_BYTES) {
+      forceClose();
+    }
+  };
+  incoming.on("data", onData);
+  incoming.on("end", cleanup);
+  incoming.on("error", cleanup);
+  incoming.resume();
+};
+var handleRequestError = () => new Response(null, {
+  status: 400
+});
+var handleFetchError = (e) => new Response(null, {
+  status: e instanceof Error && (e.name === "TimeoutError" || e.constructor.name === "TimeoutError") ? 504 : 500
+});
+var handleResponseError = (e, outgoing) => {
+  const err = e instanceof Error ? e : new Error("unknown error", { cause: e });
+  if (err.code === "ERR_STREAM_PREMATURE_CLOSE") {
+    console.info("The user aborted a request.");
+  } else {
+    console.error(e);
+    if (!outgoing.headersSent) {
+      outgoing.writeHead(500, { "Content-Type": "text/plain" });
+    }
+    outgoing.end(`Error: ${err.message}`);
+    outgoing.destroy(err);
+  }
+};
+var flushHeaders = (outgoing) => {
+  if ("flushHeaders" in outgoing && outgoing.writable) {
+    outgoing.flushHeaders();
+  }
+};
+var responseViaCache = async (res, outgoing) => {
+  let [status, body, header] = res[cacheKey];
+  let hasContentLength = false;
+  if (!header) {
+    header = { "content-type": "text/plain; charset=UTF-8" };
+  } else if (header instanceof Headers) {
+    hasContentLength = header.has("content-length");
+    header = buildOutgoingHttpHeaders(header);
+  } else if (Array.isArray(header)) {
+    const headerObj = new Headers(header);
+    hasContentLength = headerObj.has("content-length");
+    header = buildOutgoingHttpHeaders(headerObj);
+  } else {
+    for (const key in header) {
+      if (key.length === 14 && key.toLowerCase() === "content-length") {
+        hasContentLength = true;
+        break;
+      }
+    }
+  }
+  if (!hasContentLength) {
+    if (typeof body === "string") {
+      header["Content-Length"] = Buffer.byteLength(body);
+    } else if (body instanceof Uint8Array) {
+      header["Content-Length"] = body.byteLength;
+    } else if (body instanceof Blob) {
+      header["Content-Length"] = body.size;
+    }
+  }
+  outgoing.writeHead(status, header);
+  if (typeof body === "string" || body instanceof Uint8Array) {
+    outgoing.end(body);
+  } else if (body instanceof Blob) {
+    outgoing.end(new Uint8Array(await body.arrayBuffer()));
+  } else {
+    flushHeaders(outgoing);
+    await writeFromReadableStream(body, outgoing)?.catch(
+      (e) => handleResponseError(e, outgoing)
+    );
+  }
+  ;
+  outgoing[outgoingEnded]?.();
+};
+var isPromise = (res) => typeof res.then === "function";
+var responseViaResponseObject = async (res, outgoing, options = {}) => {
+  if (isPromise(res)) {
+    if (options.errorHandler) {
+      try {
+        res = await res;
+      } catch (err) {
+        const errRes = await options.errorHandler(err);
+        if (!errRes) {
+          return;
+        }
+        res = errRes;
+      }
+    } else {
+      res = await res.catch(handleFetchError);
+    }
+  }
+  if (cacheKey in res) {
+    return responseViaCache(res, outgoing);
+  }
+  const resHeaderRecord = buildOutgoingHttpHeaders(res.headers);
+  if (res.body) {
+    const reader = res.body.getReader();
+    const values = [];
+    let done = false;
+    let currentReadPromise = void 0;
+    if (resHeaderRecord["transfer-encoding"] !== "chunked") {
+      let maxReadCount = 2;
+      for (let i = 0; i < maxReadCount; i++) {
+        currentReadPromise ||= reader.read();
+        const chunk = await readWithoutBlocking(currentReadPromise).catch((e) => {
+          console.error(e);
+          done = true;
+        });
+        if (!chunk) {
+          if (i === 1) {
+            await new Promise((resolve) => setTimeout(resolve));
+            maxReadCount = 3;
+            continue;
+          }
+          break;
+        }
+        currentReadPromise = void 0;
+        if (chunk.value) {
+          values.push(chunk.value);
+        }
+        if (chunk.done) {
+          done = true;
+          break;
+        }
+      }
+      if (done && !("content-length" in resHeaderRecord)) {
+        resHeaderRecord["content-length"] = values.reduce((acc, value) => acc + value.length, 0);
+      }
+    }
+    outgoing.writeHead(res.status, resHeaderRecord);
+    values.forEach((value) => {
+      ;
+      outgoing.write(value);
+    });
+    if (done) {
+      outgoing.end();
+    } else {
+      if (values.length === 0) {
+        flushHeaders(outgoing);
+      }
+      await writeFromReadableStreamDefaultReader(reader, outgoing, currentReadPromise);
+    }
+  } else if (resHeaderRecord[X_ALREADY_SENT]) {
+  } else {
+    outgoing.writeHead(res.status, resHeaderRecord);
+    outgoing.end();
+  }
+  ;
+  outgoing[outgoingEnded]?.();
+};
+var getRequestListener = (fetchCallback, options = {}) => {
+  const autoCleanupIncoming = options.autoCleanupIncoming ?? true;
+  if (options.overrideGlobalObjects !== false && global.Request !== Request2) {
+    Object.defineProperty(global, "Request", {
+      value: Request2
+    });
+    Object.defineProperty(global, "Response", {
+      value: Response2
+    });
+  }
+  return async (incoming, outgoing) => {
+    let res, req;
+    try {
+      req = newRequest(incoming, options.hostname);
+      let incomingEnded = !autoCleanupIncoming || incoming.method === "GET" || incoming.method === "HEAD";
+      if (!incomingEnded) {
+        ;
+        incoming[wrapBodyStream] = true;
+        incoming.on("end", () => {
+          incomingEnded = true;
+        });
+        if (incoming instanceof Http2ServerRequest2) {
+          ;
+          outgoing[outgoingEnded] = () => {
+            if (!incomingEnded) {
+              setTimeout(() => {
+                if (!incomingEnded) {
+                  setTimeout(() => {
+                    drainIncoming(incoming);
+                  });
+                }
+              });
+            }
+          };
+        }
+        outgoing.on("finish", () => {
+          if (!incomingEnded) {
+            drainIncoming(incoming);
+          }
+        });
+      }
+      outgoing.on("close", () => {
+        const abortController = req[abortControllerKey];
+        if (abortController) {
+          if (incoming.errored) {
+            req[abortControllerKey].abort(incoming.errored.toString());
+          } else if (!outgoing.writableFinished) {
+            req[abortControllerKey].abort("Client connection prematurely closed.");
+          }
+        }
+        if (!incomingEnded) {
+          setTimeout(() => {
+            if (!incomingEnded) {
+              setTimeout(() => {
+                drainIncoming(incoming);
+              });
+            }
+          });
+        }
+      });
+      res = fetchCallback(req, { incoming, outgoing });
+      if (cacheKey in res) {
+        return responseViaCache(res, outgoing);
+      }
+    } catch (e) {
+      if (!res) {
+        if (options.errorHandler) {
+          res = await options.errorHandler(req ? e : toRequestError(e));
+          if (!res) {
+            return;
+          }
+        } else if (!req) {
+          res = handleRequestError();
+        } else {
+          res = handleFetchError(e);
+        }
+      } else {
+        return handleResponseError(e, outgoing);
+      }
+    }
+    try {
+      return await responseViaResponseObject(res, outgoing, options);
+    } catch (e) {
+      return handleResponseError(e, outgoing);
+    }
+  };
+};
+var handle = (app2) => {
+  return getRequestListener(app2.fetch);
 };
 
 // ../../../../app/node_modules/hono/dist/compose.js
@@ -21099,15 +21718,15 @@ var getPattern = (label, next) => {
   }
   const match2 = label.match(/^\:([^\{\}]+)(?:\{(.+)\})?$/);
   if (match2) {
-    const cacheKey2 = `${label}#${next}`;
-    if (!patternCache[cacheKey2]) {
+    const cacheKey3 = `${label}#${next}`;
+    if (!patternCache[cacheKey3]) {
       if (match2[2]) {
-        patternCache[cacheKey2] = next && next[0] !== ":" && next[0] !== "*" ? [cacheKey2, match2[1], new RegExp(`^${match2[2]}(?=/${next})`)] : [label, match2[1], new RegExp(`^${match2[2]}$`)];
+        patternCache[cacheKey3] = next && next[0] !== ":" && next[0] !== "*" ? [cacheKey3, match2[1], new RegExp(`^${match2[2]}(?=/${next})`)] : [label, match2[1], new RegExp(`^${match2[2]}$`)];
       } else {
-        patternCache[cacheKey2] = [label, match2[1], true];
+        patternCache[cacheKey3] = [label, match2[1], true];
       }
     }
-    return patternCache[cacheKey2];
+    return patternCache[cacheKey3];
   }
   return null;
 };
@@ -23114,8 +23733,8 @@ var freezeIfAvailable = (obj) => {
 };
 function createInnerProxy(callback, path2, memo2) {
   var _memo$cacheKey;
-  const cacheKey2 = path2.join(".");
-  (_memo$cacheKey = memo2[cacheKey2]) !== null && _memo$cacheKey !== void 0 || (memo2[cacheKey2] = new Proxy(noop, {
+  const cacheKey3 = path2.join(".");
+  (_memo$cacheKey = memo2[cacheKey3]) !== null && _memo$cacheKey !== void 0 || (memo2[cacheKey3] = new Proxy(noop, {
     get(_obj, key) {
       if (typeof key !== "string" || key === "then") return void 0;
       return createInnerProxy(callback, [...path2, key], memo2);
@@ -23143,7 +23762,7 @@ function createInnerProxy(callback, path2, memo2) {
       return callback(opts);
     }
   }));
-  return memo2[cacheKey2];
+  return memo2[cacheKey3];
 }
 var createRecursiveProxy = (callback) => createInnerProxy(callback, [], emptyObject());
 var JSONRPC2_TO_HTTP_CODE = {
@@ -24512,7 +25131,7 @@ var PROMISE_STATUS_REJECTED = 1;
 var ASYNC_ITERABLE_STATUS_RETURN = 0;
 var ASYNC_ITERABLE_STATUS_YIELD = 1;
 var ASYNC_ITERABLE_STATUS_ERROR = 2;
-function isPromise(value) {
+function isPromise2(value) {
   return (isObject(value) || isFunction(value)) && typeof (value === null || value === void 0 ? void 0 : value["then"]) === "function" && typeof (value === null || value === void 0 ? void 0 : value["catch"]) === "function";
 }
 var MaxDepthError = class extends Error {
@@ -24634,7 +25253,7 @@ function _createBatchStreamProducer() {
       return null;
     }
     function encodeAsync3(value, path2) {
-      if (isPromise(value)) return [CHUNK_VALUE_TYPE_PROMISE, encodePromise(value, path2)];
+      if (isPromise2(value)) return [CHUNK_VALUE_TYPE_PROMISE, encodePromise(value, path2)];
       if (isAsyncIterable(value)) {
         if (opts.maxDepth && path2.length >= opts.maxDepth) throw new Error("Max depth reached");
         return [CHUNK_VALUE_TYPE_ASYNC_ITERABLE, encodeAsyncIterable(value, path2)];
@@ -24919,7 +25538,7 @@ function caughtErrorToData(cause, errorOpts) {
 function isDataStream(v) {
   if (!isObject(v)) return false;
   if (isAsyncIterable(v)) return true;
-  return Object.values(v).some(isPromise) || Object.values(v).some(isAsyncIterable);
+  return Object.values(v).some(isPromise2) || Object.values(v).some(isAsyncIterable);
 }
 async function resolveResponse(opts) {
   var _ref, _opts$allowBatching, _opts$batching, _opts$allowMethodOver, _config$sse$enabled, _config$sse;
