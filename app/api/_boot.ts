@@ -57,6 +57,20 @@ app.use("/api/lan", async (c, next) => {
   await next();
 });
 app.get("/api/lan", (c) => {
+  // On Vercel, networkInterfaces() returns the serverless container's
+  // private IPs — not the user's home LAN, and not routable from their
+  // iPhone. Short-circuit with an empty list + the public deploy URL so
+  // the Remote Access panel can render a sensible "already public" state.
+  if (process.env.VERCEL) {
+    const publicUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/` : null;
+    return c.json({
+      port: 443,
+      addresses: [],
+      deployed: true,
+      publicUrl,
+      note: "Running on Vercel — already publicly reachable; LAN sharing is a local-only feature.",
+    });
+  }
   const hostHeader = c.req.header("host") || "";
   const hostPort = hostHeader.includes(":") ? hostHeader.split(":").pop()! : "";
   const port = parseInt(hostPort || process.env.PORT || "3000", 10);
