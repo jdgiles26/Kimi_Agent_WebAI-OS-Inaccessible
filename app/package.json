@@ -11,7 +11,7 @@
     "build": "vite build && esbuild api/_boot.ts --platform=node --bundle --format=esm --outdir=dist --banner:js='import{createRequire}from\"node:module\";const require=createRequire(import.meta.url);'",
     "build:gated": "bash scripts/build.sh",
     "build:quick": "bash scripts/build.sh --quick",
-    "vercel-build": "vite build",
+    "vercel-build": "vite build && esbuild api/_handler.ts --platform=node --bundle --format=esm --outfile=api/index.mjs --banner:js='import{createRequire}from\"node:module\";const require=createRequire(import.meta.url);'",
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "NODE_ENV=production node dist/_boot.js",
